@@ -56,34 +56,34 @@ public class LabberService {
         return databaseMirror.getStudents();
     }
 
-    public void setTeacherClasses(String teacherName, int[] listicle) {
-        Teacher teach = teacherRepository.findTeacherByName(teacherName);//split the name?
-        teach.setHour1(courseRepository.courseIDbyName(listicle[1]));//get the actual data from
-        teach.setHour2(courseRepository.courseIDbyName(listicle[2]));
-        teach.setHour3(courseRepository.courseIDbyName(listicle[3]));
-        teach.setHour4(courseRepository.courseIDbyName(listicle[4]));
-        teach.setHour5(courseRepository.courseIDbyName(listicle[5]));
-        teach.setHour6(courseRepository.courseIDbyName(listicle[6]));
-        teach.setHour7(courseRepository.courseIDbyName(listicle[7]));
-        teach.setHour8(courseRepository.courseIDbyName(listicle[8]));
+    public void setTeacherClasses(int teacherID, int[] listicle) {
+        Teacher teach = teacherRepository.findTeacherByID(teacherID);//split the name?
+        teach.setHour1(listicle[1]);
+        teach.setHour2(listicle[2]);
+        teach.setHour3(listicle[3]);
+        teach.setHour4(listicle[4]);
+        teach.setHour5(listicle[5]);
+        teach.setHour6(listicle[6]);
+        teach.setHour7(listicle[7]);
+        teach.setHour8(listicle[8]);
     }
 
-    public void setStudentClasses(String studentName, int[] listicle) {
-        Student stud = studentRepository.findStudentByName(studentName);//split the name?
-        stud.setClass1(courseRepository.courseIDbyName(listicle[0]));//get the actual data from
-        stud.setClass2(courseRepository.courseIDbyName(listicle[1]));
-        stud.setClass3(courseRepository.courseIDbyName(listicle[2]));
-        stud.setClass4(courseRepository.courseIDbyName(listicle[3]));
-        stud.setClass5(courseRepository.courseIDbyName(listicle[4]));
-        stud.setClass6(courseRepository.courseIDbyName(listicle[5]));
-        stud.setClass7(courseRepository.courseIDbyName(listicle[6]));
-        stud.setClass8(courseRepository.courseIDbyName(listicle[7]));
+    public void setStudentClasses(int studentID, int[] listicle) {
+        Student stud = studentRepository.findStudentByID(studentID);//split the name?
+        stud.setClass1(listicle[0]);//get the actual data from
+        stud.setClass2(listicle[1]);
+        stud.setClass3(listicle[2]);
+        stud.setClass4(listicle[3]);
+        stud.setClass5(listicle[4]);
+        stud.setClass6(listicle[5]);
+        stud.setClass7(listicle[6]);
+        stud.setClass8(listicle[7]);
         //stud.setFlag(false);
         System.out.println(stud);
     }
 
-    public void setStudentFlag(String studentName) {
-        Student stud = studentRepository.findStudentByName(studentName);
+    public void setStudentFlag(int studentID) {
+        Student stud = studentRepository.findStudentByID(studentID);
         stud.setFlag(false);
     }
 }

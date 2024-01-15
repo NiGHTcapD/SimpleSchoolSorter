@@ -56,4 +56,8 @@ public class Teacher {
     public String toString(){
         return this.teachFirstName+" "+this.teachLastName;
     }
+
+    public int getIDgnorableT(){
+        return IDgnorable;
+    }
 }

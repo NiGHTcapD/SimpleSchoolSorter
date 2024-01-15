@@ -71,7 +71,7 @@ public class Labber {
             listicle[7]=teachHour7List.getSelectedValue().getClassId();
             listicle[8]=teachHour8List.getSelectedValue().getClassId();
 
-            labberService.setTeacherClasses((String) teacherNamesList.getSelectedValue(), listicle);
+            labberService.setTeacherClasses(teacherNamesList.getSelectedValue().getIDgnorableT(), listicle);
         });//set teacher classes
 
         studentSaveButton.addActionListener(e -> {
@@ -85,8 +85,8 @@ public class Labber {
             listicle[6]=studentClass7.getSelectedValue().getClassId();
             listicle[7]=studentClass8.getSelectedValue().getClassId();
 
-            labberService.setStudentClasses((String) studentNamesList.getSelectedValue(), listicle);
-            labberService.setStudentFlag((String) studentNamesList.getSelectedValue());
+            labberService.setStudentClasses(studentNamesList.getSelectedValue().getIDgnorableS(), listicle);
+            labberService.setStudentFlag(studentNamesList.getSelectedValue().getIDgnorableS());
         });//set student classes
 
         studentScheduleButton.addActionListener(e ->  {
@@ -103,12 +103,12 @@ public class Labber {
             listicle[5]=studentClass6.getSelectedValue().getClassId();
             listicle[6]=studentClass7.getSelectedValue().getClassId();
             listicle[7]=studentClass8.getSelectedValue().getClassId();
-            labberService.setStudentClasses((String) studentNamesList.getSelectedValue(), listicle);
-            labberService.setStudentFlag((String) studentNamesList.getSelectedValue());
+            labberService.setStudentClasses(studentNamesList.getSelectedValue().getIDgnorableS(), listicle);
+            labberService.setStudentFlag(studentNamesList.getSelectedValue().getIDgnorableS());
 
-            int[] studentScheduledClasses = labberService.getStudentScheduledClasses((Integer) studentNamesList.getSelectedValue());
+            int[] studentScheduledClasses = labberService.getStudentScheduledClasses(studentNamesList.getSelectedValue().getIDgnorableS());
 
-            labberService.setStudentClasses((String) studentNamesList.getSelectedValue(), studentScheduledClasses);
+            labberService.setStudentClasses(studentNamesList.getSelectedValue().getIDgnorableS(), studentScheduledClasses);
 
             //System.out.println();
         });//attempt to schedule them
@@ -120,6 +120,14 @@ public class Labber {
                 teacherNamesListModel.clear();
                 Collection teachers = labberService.getTeachers();
                 teacherNamesListModel.addAll(teachers);
+                classNamesListModel.clear();
+                Collection classes = labberService.getClasses();
+                classNamesListModel.addAll(classes);
+            }
+            if(tabbedPane1.getSelectedIndex()==4) {
+                studentNamesListModel.clear();
+                Collection teachers = labberService.getStudents();
+                studentNamesListModel.addAll(teachers);
                 classNamesListModel.clear();
                 Collection classes = labberService.getClasses();
                 classNamesListModel.addAll(classes);
@@ -151,7 +159,7 @@ public class Labber {
     }
 
 
-    private void setTeacherClasses(JList teacherNamesList) {
+    /*private void setTeacherClasses(JList teacherNamesList) {
         //get teacher row by...something
         Teacher teach = teacherRepository.findTeacherByName((String) teacherNamesList.getSelectedValue());//split the name?
         teach.setHour1(courseRepository.courseIDbyName(teachHour1List.getSelectedValue().getClassId()));//get the actual data from
@@ -188,7 +196,7 @@ public class Labber {
         stud.setClass7(scheduledCourses[6]);
         stud.setClass8(scheduledCourses[7]);
         //and don't touch the flag
-    }
+    }*/
 
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
@@ -202,7 +210,7 @@ public class Labber {
     private JTextField className;
     private JTextField classGrade;
     private JButton classButton;
-    private JList teacherNamesList;
+    private JList<Teacher> teacherNamesList;
     DefaultListModel teacherNamesListModel = new DefaultListModel();
     private JList<Course> teachHour1List;
     DefaultListModel classNamesListModel = new DefaultListModel();
@@ -214,7 +222,7 @@ public class Labber {
     private JList<Course> teachHour7List;
     private JList<Course> teachHour8List;
     private JButton teacherSButton;
-    private JList studentNamesList;
+    private JList<Student> studentNamesList;
     DefaultListModel studentNamesListModel = new DefaultListModel();
     private JList<Course> studentClass1;
     private JList<Course> studentClass2;

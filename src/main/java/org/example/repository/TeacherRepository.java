@@ -40,4 +40,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
     @Query("select teach.IDgnorable from Teacher teach where teach.teachFirstName = :firstName")
     Teacher findTeacherByName(@Param("firstName") String firstName);
 
+    @Query("select teach from Teacher teach where teach.IDgnorable = :teacherID")
+    Teacher findTeacherByID(@Param("teacherID") int teacherID);
 }

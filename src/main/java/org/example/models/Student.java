@@ -64,4 +64,8 @@ public class Student {
     public String toString(){
         return this.studentFirstName+" "+this.studentLastName;
     }
+
+    public int getIDgnorableS(){
+        return IDgnorable;
+    }
 }
