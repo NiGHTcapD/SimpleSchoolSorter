@@ -87,13 +87,15 @@ public class StudentsIntoClasses {
     }
 
     private static void scheduleClass(int[] classesScheduled, int[] studentClassList, List<Pair<Integer, Integer>>[] classesCouldSchedule, int isLowest) {
-        int randomed = new Random().nextInt(classesCouldSchedule[isLowest].size());
-        Pair<Integer, Integer> classToScheduleByID = classesCouldSchedule[isLowest].get(randomed);
-        //  Pop the class (or put a 0 on that part of the list) and put the teacher-class ID in the 8-int list
-        studentClassList[isLowest]=0;
-        //int hourScheduledIn = the hour of classToScheduleByID
-        int hourScheduledIn = classesCouldSchedule[isLowest].get(randomed).getFirst();
-        classesScheduled[hourScheduledIn]=classToScheduleByID.getSecond();
+        if (classesCouldSchedule[isLowest].size()>0) {//this handles an error on the next line where 0 is not a positive bound for randomization
+            int randomed = new Random().nextInt(classesCouldSchedule[isLowest].size());
+            Pair<Integer, Integer> classToScheduleByID = classesCouldSchedule[isLowest].get(randomed);
+            //  Pop the class (or put a 0 on that part of the list) and put the teacher-class ID in the 8-int list
+            studentClassList[isLowest] = 0;
+            //int hourScheduledIn = the hour of classToScheduleByID
+            int hourScheduledIn = classesCouldSchedule[isLowest].get(randomed).getFirst();
+            classesScheduled[hourScheduledIn] = classToScheduleByID.getSecond();
+        }
     }
 
     static int getLowest(List<Pair<Integer, Integer>>[] classesCouldSchedule) {

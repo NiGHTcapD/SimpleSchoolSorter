@@ -1,6 +1,5 @@
 package org.example.services;
 
-import org.example.Labber;
 import org.example.models.Course;
 import org.example.models.Student;
 import org.example.models.Teacher;
@@ -11,7 +10,7 @@ import org.example.swinggooey.DatabaseMirror;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.List;
 
 @Service
 public class LabberService {
@@ -46,13 +45,13 @@ public class LabberService {
         courseRepository.save(course);
     }
 
-    public Collection getTeachers() {
+    public List<Teacher> getTeachers() {
         return databaseMirror.getTeachers();
     }
-    public Collection getClasses() {
+    public List<Course> getClasses() {
         return databaseMirror.getCourses();
     }
-    public Collection getStudents() {
+    public List<Student> getStudents() {
         return databaseMirror.getStudents();
     }
 

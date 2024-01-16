@@ -3,32 +3,19 @@ package org.example;
 import org.example.models.Course;
 import org.example.models.Student;
 import org.example.models.Teacher;
-import org.example.repository.CourseRepository;
-import org.example.repository.StudentRepository;
-import org.example.repository.TeacherRepository;
 import org.example.services.LabberService;
-import org.example.swinggooey.DatabaseMirror;
 import org.example.utilities.DigitsOnlyFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
-import java.util.Collection;
+import java.util.List;
 
 @Component
 public class Labber {
     private JFrame frame;
 
-    @Autowired
-    TeacherRepository teacherRepository;
-    @Autowired
-    StudentRepository studentRepository;
-    @Autowired
-    CourseRepository courseRepository;
-    @Autowired
-    DatabaseMirror databaseMirror;
 
     LabberService labberService;
 
@@ -118,18 +105,18 @@ public class Labber {
            //teacherNamesList.addElement("aa");
             if(tabbedPane1.getSelectedIndex()==3) {
                 teacherNamesListModel.clear();
-                Collection teachers = labberService.getTeachers();
+                List<Teacher> teachers = labberService.getTeachers();
                 teacherNamesListModel.addAll(teachers);
                 classNamesListModel.clear();
-                Collection classes = labberService.getClasses();
+                List<Course> classes = labberService.getClasses();
                 classNamesListModel.addAll(classes);
             }
             if(tabbedPane1.getSelectedIndex()==4) {
                 studentNamesListModel.clear();
-                Collection teachers = labberService.getStudents();
-                studentNamesListModel.addAll(teachers);
+                List<Student> students = labberService.getStudents();
+                studentNamesListModel.addAll(students);
                 classNamesListModel.clear();
-                Collection classes = labberService.getClasses();
+                List<Course> classes = labberService.getClasses();
                 classNamesListModel.addAll(classes);
             }
         });
@@ -211,9 +198,9 @@ public class Labber {
     private JTextField classGrade;
     private JButton classButton;
     private JList<Teacher> teacherNamesList;
-    DefaultListModel teacherNamesListModel = new DefaultListModel();
+    DefaultListModel<Teacher> teacherNamesListModel = new DefaultListModel<>();
     private JList<Course> teachHour1List;
-    DefaultListModel classNamesListModel = new DefaultListModel();
+    DefaultListModel<Course> classNamesListModel = new DefaultListModel<>();
     private JList<Course> teachHour2List;
     private JList<Course> teachHour3List;
     private JList<Course> teachHour4List;
@@ -223,7 +210,7 @@ public class Labber {
     private JList<Course> teachHour8List;
     private JButton teacherSButton;
     private JList<Student> studentNamesList;
-    DefaultListModel studentNamesListModel = new DefaultListModel();
+    DefaultListModel<Student> studentNamesListModel = new DefaultListModel<>();
     private JList<Course> studentClass1;
     private JList<Course> studentClass2;
     private JList<Course> studentClass3;
