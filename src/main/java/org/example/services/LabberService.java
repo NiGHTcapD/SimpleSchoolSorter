@@ -55,8 +55,7 @@ public class LabberService {
         return databaseMirror.getStudents();
     }
 
-    public void setTeacherClasses(int teacherID, int[] listicle) {
-        Teacher teach = teacherRepository.findTeacherByID(teacherID);//split the name?
+    public void setTeacherClasses(Teacher teach, int[] listicle) {
         teach.setHour1(listicle[1]);
         System.out.print(teach.getHour1());
         teach.setHour2(listicle[2]);
@@ -69,11 +68,10 @@ public class LabberService {
         teach.setHour7(listicle[7]);
         teach.setHour8(listicle[8]);
 
-        System.out.println(teach);
+        teacherRepository.save(teach);
     }
 
-    public void setStudentClasses(int studentID, int[] listicle) {
-        Student stud = studentRepository.findStudentByID(studentID);//split the name?
+    public void setStudentClasses(Student stud, int[] listicle) {
         stud.setClass1(listicle[0]);//get the actual data from
         stud.setClass2(listicle[1]);
         stud.setClass3(listicle[2]);
@@ -83,11 +81,10 @@ public class LabberService {
         stud.setClass7(listicle[6]);
         stud.setClass8(listicle[7]);
         //stud.setFlag(false);
-        System.out.println(stud);
+        studentRepository.save(stud);
     }
 
-    public void setStudentFlag(int studentID) {
-        Student stud = studentRepository.findStudentByID(studentID);
+    public void setStudentFlag(Student stud) {
         stud.setFlag(false);
     }
 }

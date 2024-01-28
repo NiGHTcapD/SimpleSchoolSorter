@@ -59,7 +59,7 @@ public class Labber {
             listicle[7]=teachHour7List.getSelectedValue().getClassId();
             listicle[8]=teachHour8List.getSelectedValue().getClassId();
 
-            labberService.setTeacherClasses(teacherNamesList.getSelectedValue().getIDgnorableT(), listicle);
+            labberService.setTeacherClasses(teacherNamesList.getSelectedValue(), listicle);
         });//set teacher classes
 
         studentSaveButton.addActionListener(e -> {
@@ -73,8 +73,8 @@ public class Labber {
             listicle[6]=studentClass7.getSelectedValue().getClassId();
             listicle[7]=studentClass8.getSelectedValue().getClassId();
 
-            labberService.setStudentClasses(studentNamesList.getSelectedValue().getIDgnorableS(), listicle);
-            labberService.setStudentFlag(studentNamesList.getSelectedValue().getIDgnorableS());
+            labberService.setStudentClasses(studentNamesList.getSelectedValue(), listicle);
+            labberService.setStudentFlag(studentNamesList.getSelectedValue());
         });//set student classes
 
         studentScheduleButton.addActionListener(e ->  {
@@ -91,12 +91,12 @@ public class Labber {
             listicle[5]=studentClass6.getSelectedValue().getClassId();
             listicle[6]=studentClass7.getSelectedValue().getClassId();
             listicle[7]=studentClass8.getSelectedValue().getClassId();
-            labberService.setStudentClasses(studentNamesList.getSelectedValue().getIDgnorableS(), listicle);
-            labberService.setStudentFlag(studentNamesList.getSelectedValue().getIDgnorableS());
+            labberService.setStudentClasses(studentNamesList.getSelectedValue(), listicle);
+            labberService.setStudentFlag(studentNamesList.getSelectedValue());
 
             int[] studentScheduledClasses = labberService.getStudentScheduledClasses(studentNamesList.getSelectedValue().getIDgnorableS());
 
-            labberService.setStudentClasses(studentNamesList.getSelectedValue().getIDgnorableS(), studentScheduledClasses);
+            labberService.setStudentClasses(studentNamesList.getSelectedValue(), studentScheduledClasses);
 
             //System.out.println();
         });//attempt to schedule them
@@ -123,14 +123,25 @@ public class Labber {
         });
 
         teacherNamesList.addListSelectionListener(e -> {
-            System.out.println("1");
             if (!e.getValueIsAdjusting()) {
-                System.out.println("2");
                 Teacher teacher = teacherNamesList.getSelectedValue();
                 if(teacher!=null) {
-                    System.out.println("3");
                     int teach1 = teacher.getHour1();
                     teachHour1List.setSelectedIndex(getClassListIndex(teach1));
+                    int teach2 = teacher.getHour2();
+                    teachHour2List.setSelectedIndex(getClassListIndex(teach2));
+                    int teach3 = teacher.getHour3();
+                    teachHour3List.setSelectedIndex(getClassListIndex(teach3));
+                    int teach4 = teacher.getHour4();
+                    teachHour4List.setSelectedIndex(getClassListIndex(teach4));
+                    int teach5 = teacher.getHour5();
+                    teachHour5List.setSelectedIndex(getClassListIndex(teach5));
+                    int teach6 = teacher.getHour6();
+                    teachHour6List.setSelectedIndex(getClassListIndex(teach6));
+                    int teach7 = teacher.getHour7();
+                    teachHour7List.setSelectedIndex(getClassListIndex(teach7));
+                    int teach8 = teacher.getHour8();
+                    teachHour8List.setSelectedIndex(getClassListIndex(teach8));
                     // Use this teacher to set the rest
                 }
             }
