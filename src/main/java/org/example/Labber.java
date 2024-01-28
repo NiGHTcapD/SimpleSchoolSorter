@@ -4,6 +4,7 @@ import org.example.models.Course;
 import org.example.models.Student;
 import org.example.models.Teacher;
 import org.example.services.LabberService;
+import org.example.utilities.AutocompleteComboBox;
 import org.example.utilities.DigitsOnlyFilter;
 import org.springframework.stereotype.Component;
 
@@ -121,6 +122,22 @@ public class Labber {
             }
         });
 
+        teacherNamesList.addListSelectionListener(e -> {
+            System.out.println("1");
+            if (!e.getValueIsAdjusting()) {
+                System.out.println("2");
+                Teacher teacher = teacherNamesList.getSelectedValue();
+                if(teacher!=null) {
+                    System.out.println("3");
+                    int teach1 = teacher.getHour1();
+                    teachHour1List.setSelectedIndex(getClassListIndex(teach1));
+                    // Use this teacher to set the rest
+                }
+            }
+            }
+        );
+
+
         teacherNamesList.setModel(teacherNamesListModel);
         studentNamesList.setModel(studentNamesListModel);
         teachHour1List.setModel(classNamesListModel);
@@ -143,6 +160,19 @@ public class Labber {
         frame.pack();
 
 
+    }
+
+    private int getClassListIndex(int classID) {
+        //one way to get the index is to have already stored the objects in an array
+        //oh look, I have one
+        for (int i = 0; i < classNamesListModel.getSize(); i++) {
+
+            if (classNamesListModel.getElementAt(i).getClassId()==classID) {
+                System.out.println(i+ ", 4");
+                return i;
+            }
+        }
+        return -1;
     }
 
 
@@ -224,6 +254,7 @@ public class Labber {
     private JButton generateScheduleSButton;
     private JButton studentSaveButton;
     private JRadioButton radioButton1;
+    private AutocompleteComboBox comboBox1;
 
 
 }

@@ -58,13 +58,18 @@ public class LabberService {
     public void setTeacherClasses(int teacherID, int[] listicle) {
         Teacher teach = teacherRepository.findTeacherByID(teacherID);//split the name?
         teach.setHour1(listicle[1]);
+        System.out.print(teach.getHour1());
         teach.setHour2(listicle[2]);
         teach.setHour3(listicle[3]);
+        System.out.print(teach.getHour3());
         teach.setHour4(listicle[4]);
         teach.setHour5(listicle[5]);
         teach.setHour6(listicle[6]);
+        System.out.print(teach.getHour6());
         teach.setHour7(listicle[7]);
         teach.setHour8(listicle[8]);
+
+        System.out.println(teach);
     }
 
     public void setStudentClasses(int studentID, int[] listicle) {
