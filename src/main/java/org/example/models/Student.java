@@ -62,7 +62,7 @@ public class Student {
     }
 
     public String toString(){
-        return this.studentFirstName+" "+this.studentLastName +"["+class1+class2+class3+class4+class5+class6+class7+class8+"]";
+        return this.studentFirstName+" "+this.studentLastName;// +"["+class1+class2+class3+class4+class5+class6+class7+class8+"]";
     }
 
     public int getIDgnorableS(){

@@ -126,28 +126,36 @@ public class Labber {
             if (!e.getValueIsAdjusting()) {
                 Teacher teacher = teacherNamesList.getSelectedValue();
                 if(teacher!=null) {
-                    int teach1 = teacher.getHour1();
-                    teachHour1List.setSelectedIndex(getClassListIndex(teach1));
-                    int teach2 = teacher.getHour2();
-                    teachHour2List.setSelectedIndex(getClassListIndex(teach2));
-                    int teach3 = teacher.getHour3();
-                    teachHour3List.setSelectedIndex(getClassListIndex(teach3));
-                    int teach4 = teacher.getHour4();
-                    teachHour4List.setSelectedIndex(getClassListIndex(teach4));
-                    int teach5 = teacher.getHour5();
-                    teachHour5List.setSelectedIndex(getClassListIndex(teach5));
-                    int teach6 = teacher.getHour6();
-                    teachHour6List.setSelectedIndex(getClassListIndex(teach6));
-                    int teach7 = teacher.getHour7();
-                    teachHour7List.setSelectedIndex(getClassListIndex(teach7));
-                    int teach8 = teacher.getHour8();
-                    teachHour8List.setSelectedIndex(getClassListIndex(teach8));
+                    teachHour1List.setSelectedIndex(getClassListIndex(teacher.getHour1()));
+                    teachHour2List.setSelectedIndex(getClassListIndex(teacher.getHour2()));
+                    teachHour3List.setSelectedIndex(getClassListIndex(teacher.getHour3()));
+                    teachHour4List.setSelectedIndex(getClassListIndex(teacher.getHour4()));
+                    teachHour5List.setSelectedIndex(getClassListIndex(teacher.getHour5()));
+                    teachHour6List.setSelectedIndex(getClassListIndex(teacher.getHour6()));
+                    teachHour7List.setSelectedIndex(getClassListIndex(teacher.getHour7()));
+                    teachHour8List.setSelectedIndex(getClassListIndex(teacher.getHour8()));
                     // Use this teacher to set the rest
                 }
             }
             }
         );
-
+        studentNamesList.addListSelectionListener(e -> {
+                    if (!e.getValueIsAdjusting()) {
+                        Student student = studentNamesList.getSelectedValue();
+                        if(student!=null) {
+                            studentClass1.setSelectedIndex(getClassListIndex(student.getClass1()));
+                            studentClass2.setSelectedIndex(getClassListIndex(student.getClass2()));
+                            studentClass3.setSelectedIndex(getClassListIndex(student.getClass3()));
+                            studentClass4.setSelectedIndex(getClassListIndex(student.getClass4()));
+                            studentClass5.setSelectedIndex(getClassListIndex(student.getClass5()));
+                            studentClass6.setSelectedIndex(getClassListIndex(student.getClass6()));
+                            studentClass7.setSelectedIndex(getClassListIndex(student.getClass7()));
+                            studentClass8.setSelectedIndex(getClassListIndex(student.getClass8()));
+                            // Use this teacher to set the rest
+                        }
+                    }
+                }
+        );
 
         teacherNamesList.setModel(teacherNamesListModel);
         studentNamesList.setModel(studentNamesListModel);
@@ -179,7 +187,6 @@ public class Labber {
         for (int i = 0; i < classNamesListModel.getSize(); i++) {
 
             if (classNamesListModel.getElementAt(i).getClassId()==classID) {
-                System.out.println(i+ ", 4");
                 return i;
             }
         }

@@ -54,7 +54,7 @@ public class Teacher {
     }
 
     public String toString(){
-        return this.teachFirstName+" "+this.teachLastName +"["+hour1+hour2+hour3+hour4+hour5+hour6+hour7+hour8+"]";
+        return this.teachFirstName+" "+this.teachLastName;// +"["+hour1+hour2+hour3+hour4+hour5+hour6+hour7+hour8+"]";
     }
 
     public int getIDgnorableT(){
