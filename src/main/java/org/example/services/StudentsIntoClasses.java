@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class StudentsIntoClasses {
@@ -21,6 +18,7 @@ public class StudentsIntoClasses {
     //selects randomly from that list
     //Run it for 7 remaining courses across 7 remaining hours
     //et cetera
+    int[] classesScheduled = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
     @Autowired
     TeacherRepository teacherRepository;
 
@@ -29,7 +27,7 @@ public class StudentsIntoClasses {
 
     public int[] studentScheduler(int id) {
         //[0,0,0,0,0,0,0,0]
-        int[] classesScheduled = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+        classesScheduled = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
         //make a list of classes needed
 
         //Loop for 8 iterations with a break condition
@@ -37,9 +35,10 @@ public class StudentsIntoClasses {
 
             //to future generations: Be careful if you go in here.
             classesScheduled = oneAttemptToScheduleAStudent(id, classesScheduled);
-            if (classesScheduled == null) break;
+            if (!Objects.equals(classesScheduled, new int[]{0, 0, 0, 0, 0, 0, 0, 0})) break;
         }
-        if (classesScheduled != null){studentRepository.findStudentByID(id).setFlag(true);}
+        if (!Objects.equals(classesScheduled, new int[]{0, 0, 0, 0, 0, 0, 0, 0})){studentRepository.findStudentByID(id).setFlag(true);}
+        System.out.println(java.util.Arrays.toString(classesScheduled));
         return classesScheduled;
     }
 
@@ -75,14 +74,16 @@ public class StudentsIntoClasses {
             //    gets a teacher-classtime randomly selected for them
             scheduleClass(classesScheduled, studentClassList, classesCouldSchedule, isLowest);
         }
+
+        System.out.println(java.util.Arrays.toString(classesScheduled) + "please");
         //  If no nonzeroes occur, too early, then you've screwed up somewhere. Run it again, up to 8 times.
         //if run again...classesScheduled = {0, 0, 0, 0, 0, 0, 0, 0};
         if (findZero(classesScheduled)){
             classesScheduled = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
         }
-        else{
-            return null;
-        }
+        //else{
+        //    return null;
+        //}
         return classesScheduled;
     }
 
