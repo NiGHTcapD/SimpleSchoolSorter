@@ -94,12 +94,27 @@ public class Labber {
             labberService.setStudentClasses(studentNamesList.getSelectedValue(), listicle);
             labberService.setStudentFlag(studentNamesList.getSelectedValue());
 
-            int[] studentScheduledClasses = labberService.getStudentScheduledClasses(studentNamesList.getSelectedValue().getIDgnorableS());
+            int[] studentScheduledClasses = labberService.getStudentScheduledClasses(studentNamesList.getSelectedValue());
 
             labberService.setStudentClasses(studentNamesList.getSelectedValue(), studentScheduledClasses);
 
             //System.out.println();
         });//attempt to schedule them
+
+        generateScheduleSButton.addActionListener(e ->{
+            //loop through all students with false flags and attempt to schedule them
+//
+            //get all students
+            for (Student student:
+                    labberService.getStudents()) {
+                //if they have flag set to false
+                if (!student.isFlag()) {
+                    //schedule them
+                    int[] studentScheduledClasses = labberService.getStudentScheduledClasses(student);
+                    labberService.setStudentClasses(student, studentScheduledClasses);
+                }
+            }
+        });
 
         tabbedPane1.addChangeListener(e -> {
            //List teachers= databaseMirror.getTeachers();

@@ -26,8 +26,8 @@ public class LabberService {
     DatabaseMirror databaseMirror;
 
 
-    public int[] getStudentScheduledClasses(Integer id) {
-        return studentsIntoClasses.studentScheduler(id);
+    public int[] getStudentScheduledClasses(Student student) {
+        return studentsIntoClasses.studentScheduler(student);
     }
 
     public void saveTeacher(String firstName, String lastName) {
