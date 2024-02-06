@@ -6,6 +6,7 @@ import org.example.models.Teacher;
 import org.example.services.LabberService;
 import org.example.utilities.AutocompleteComboBox;
 import org.example.utilities.DigitsOnlyFilter;
+import org.example.utilities.FilterComboBox;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -50,31 +51,31 @@ public class Labber {
         teacherSButton.addActionListener(e -> {
             int[] listicle = new int[9];
             //listicle[0]=(String) teacherNamesList.getSelectedValue();
-            listicle[1]=teachHour1List.getSelectedValue().getClassId();
-            listicle[2]=teachHour2List.getSelectedValue().getClassId();
-            listicle[3]=teachHour3List.getSelectedValue().getClassId();
-            listicle[4]=teachHour4List.getSelectedValue().getClassId();
-            listicle[5]=teachHour5List.getSelectedValue().getClassId();
-            listicle[6]=teachHour6List.getSelectedValue().getClassId();
-            listicle[7]=teachHour7List.getSelectedValue().getClassId();
-            listicle[8]=teachHour8List.getSelectedValue().getClassId();
+            listicle[1]=((Course)teachHour1List.getSelectedItem()).getClassId();
+            listicle[2]=((Course)teachHour2List.getSelectedItem()).getClassId();
+            listicle[3]=((Course)teachHour3List.getSelectedItem()).getClassId();
+            listicle[4]=((Course)teachHour4List.getSelectedItem()).getClassId();
+            listicle[5]=((Course)teachHour5List.getSelectedItem()).getClassId();
+            listicle[6]=((Course)teachHour6List.getSelectedItem()).getClassId();
+            listicle[7]=((Course)teachHour7List.getSelectedItem()).getClassId();
+            listicle[8]=((Course)teachHour8List.getSelectedItem()).getClassId();
 
-            labberService.setTeacherClasses(teacherNamesList.getSelectedValue(), listicle);
+            labberService.setTeacherClasses((Teacher) teacherNamesList.getSelectedItem(), listicle);
         });//set teacher classes
 
         studentSaveButton.addActionListener(e -> {
             int[] listicle = new int[8];
-            listicle[0]=studentClass1.getSelectedValue().getClassId();
-            listicle[1]=studentClass2.getSelectedValue().getClassId();
-            listicle[2]=studentClass3.getSelectedValue().getClassId();
-            listicle[3]=studentClass4.getSelectedValue().getClassId();
-            listicle[4]=studentClass5.getSelectedValue().getClassId();
-            listicle[5]=studentClass6.getSelectedValue().getClassId();
-            listicle[6]=studentClass7.getSelectedValue().getClassId();
-            listicle[7]=studentClass8.getSelectedValue().getClassId();
+            listicle[0]=((Course)studentClass1.getSelectedItem()).getClassId();
+            listicle[1]=((Course)studentClass2.getSelectedItem()).getClassId();
+            listicle[2]=((Course)studentClass3.getSelectedItem()).getClassId();
+            listicle[3]=((Course)studentClass4.getSelectedItem()).getClassId();
+            listicle[4]=((Course)studentClass5.getSelectedItem()).getClassId();
+            listicle[5]=((Course)studentClass6.getSelectedItem()).getClassId();
+            listicle[6]=((Course)studentClass7.getSelectedItem()).getClassId();
+            listicle[7]=((Course)studentClass8.getSelectedItem()).getClassId();
 
-            labberService.setStudentClasses(studentNamesList.getSelectedValue(), listicle);
-            labberService.setStudentFlag(studentNamesList.getSelectedValue());
+            labberService.setStudentClasses((Student) studentNamesList.getSelectedItem(), listicle);
+            labberService.setStudentFlag((Student) studentNamesList.getSelectedItem());
         });//set student classes
 
         studentScheduleButton.addActionListener(e ->  {
@@ -83,20 +84,20 @@ public class Labber {
             //setStudentClasses(studentNamesList, studentScheduledClasses);
 
             int[] listicle = new int[8];
-            listicle[0]=studentClass1.getSelectedValue().getClassId();
-            listicle[1]=studentClass2.getSelectedValue().getClassId();
-            listicle[2]=studentClass3.getSelectedValue().getClassId();
-            listicle[3]=studentClass4.getSelectedValue().getClassId();
-            listicle[4]=studentClass5.getSelectedValue().getClassId();
-            listicle[5]=studentClass6.getSelectedValue().getClassId();
-            listicle[6]=studentClass7.getSelectedValue().getClassId();
-            listicle[7]=studentClass8.getSelectedValue().getClassId();
-            labberService.setStudentClasses(studentNamesList.getSelectedValue(), listicle);
-            labberService.setStudentFlag(studentNamesList.getSelectedValue());
+            listicle[0]=((Course)studentClass1.getSelectedItem()).getClassId();
+            listicle[1]=((Course)studentClass2.getSelectedItem()).getClassId();
+            listicle[2]=((Course)studentClass3.getSelectedItem()).getClassId();
+            listicle[3]=((Course)studentClass4.getSelectedItem()).getClassId();
+            listicle[4]=((Course)studentClass5.getSelectedItem()).getClassId();
+            listicle[5]=((Course)studentClass6.getSelectedItem()).getClassId();
+            listicle[6]=((Course)studentClass7.getSelectedItem()).getClassId();
+            listicle[7]=((Course)studentClass8.getSelectedItem()).getClassId();
+            labberService.setStudentClasses((Student) studentNamesList.getSelectedItem(), listicle);
+            labberService.setStudentFlag((Student) studentNamesList.getSelectedItem());
 
-            int[] studentScheduledClasses = labberService.getStudentScheduledClasses(studentNamesList.getSelectedValue());
+            int[] studentScheduledClasses = labberService.getStudentScheduledClasses((Student) studentNamesList.getSelectedItem());
 
-            labberService.setStudentClasses(studentNamesList.getSelectedValue(), studentScheduledClasses);
+            labberService.setStudentClasses((Student) studentNamesList.getSelectedItem(), studentScheduledClasses);
 
             //System.out.println();
         });//attempt to schedule them
@@ -120,77 +121,68 @@ public class Labber {
            //List teachers= databaseMirror.getTeachers();
            //teacherNamesList.addElement("aa");
             if(tabbedPane1.getSelectedIndex()==3) {
-                teacherNamesListModel.clear();
+                teacherNamesList.setItems(labberService.getTeachers());
+
+                teachHour1List.setItems(labberService.getClasses());
+                teachHour2List.setItems(labberService.getClasses());
+                teachHour3List.setItems(labberService.getClasses());
+                teachHour4List.setItems(labberService.getClasses());
+                teachHour5List.setItems(labberService.getClasses());
+                teachHour6List.setItems(labberService.getClasses());
+                teachHour7List.setItems(labberService.getClasses());
+                teachHour8List.setItems(labberService.getClasses());
+                /*teacherNamesListModel.clear();
                 List<Teacher> teachers = labberService.getTeachers();
                 teacherNamesListModel.addAll(teachers);
                 classNamesListModel.clear();
                 List<Course> classes = labberService.getClasses();
-                classNamesListModel.addAll(classes);
+                classNamesListModel.addAll(classes);*/
             }
             if(tabbedPane1.getSelectedIndex()==4) {
-                studentNamesListModel.clear();
-                List<Student> students = labberService.getStudents();
-                studentNamesListModel.addAll(students);
-                classNamesListModel.clear();
-                List<Course> classes = labberService.getClasses();
-                classNamesListModel.addAll(classes);
+                studentNamesList.setItems(labberService.getStudents());
+
+                studentClass1.setItems(labberService.getClasses());
+                studentClass2.setItems(labberService.getClasses());
+                studentClass3.setItems(labberService.getClasses());
+                studentClass4.setItems(labberService.getClasses());
+                studentClass5.setItems(labberService.getClasses());
+                studentClass6.setItems(labberService.getClasses());
+                studentClass7.setItems(labberService.getClasses());
+                studentClass8.setItems(labberService.getClasses());
             }
         });
 
-        teacherNamesList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                Teacher teacher = teacherNamesList.getSelectedValue();
-                if(teacher!=null) {
-                    teachHour1List.setSelectedIndex(getClassListIndex(teacher.getHour1()));
-                    teachHour2List.setSelectedIndex(getClassListIndex(teacher.getHour2()));
-                    teachHour3List.setSelectedIndex(getClassListIndex(teacher.getHour3()));
-                    teachHour4List.setSelectedIndex(getClassListIndex(teacher.getHour4()));
-                    teachHour5List.setSelectedIndex(getClassListIndex(teacher.getHour5()));
-                    teachHour6List.setSelectedIndex(getClassListIndex(teacher.getHour6()));
-                    teachHour7List.setSelectedIndex(getClassListIndex(teacher.getHour7()));
-                    teachHour8List.setSelectedIndex(getClassListIndex(teacher.getHour8()));
-                    // Use this teacher to set the rest
-                }
-            }
-            }
-        );
-        studentNamesList.addListSelectionListener(e -> {
-                    if (!e.getValueIsAdjusting()) {
-                        Student student = studentNamesList.getSelectedValue();
-                        if(student!=null) {
-                            studentClass1.setSelectedIndex(getClassListIndex(student.getClass1()));
-                            studentClass2.setSelectedIndex(getClassListIndex(student.getClass2()));
-                            studentClass3.setSelectedIndex(getClassListIndex(student.getClass3()));
-                            studentClass4.setSelectedIndex(getClassListIndex(student.getClass4()));
-                            studentClass5.setSelectedIndex(getClassListIndex(student.getClass5()));
-                            studentClass6.setSelectedIndex(getClassListIndex(student.getClass6()));
-                            studentClass7.setSelectedIndex(getClassListIndex(student.getClass7()));
-                            studentClass8.setSelectedIndex(getClassListIndex(student.getClass8()));
-                            // Use this teacher to set the rest
-                        }
-                    }
-                }
-        );
+        teacherNamesList.addActionListener(e -> {
 
-        teacherNamesList.setModel(teacherNamesListModel);
-        studentNamesList.setModel(studentNamesListModel);
-        teachHour1List.setModel(classNamesListModel);
-        teachHour2List.setModel(classNamesListModel);
-        teachHour3List.setModel(classNamesListModel);
-        teachHour4List.setModel(classNamesListModel);
-        teachHour5List.setModel(classNamesListModel);
-        teachHour6List.setModel(classNamesListModel);
-        teachHour7List.setModel(classNamesListModel);
-        teachHour8List.setModel(classNamesListModel);
-        studentClass1.setModel(classNamesListModel);
-        studentClass2.setModel(classNamesListModel);
-        studentClass3.setModel(classNamesListModel);
-        studentClass4.setModel(classNamesListModel);
-        studentClass5.setModel(classNamesListModel);
-        studentClass6.setModel(classNamesListModel);
-        studentClass7.setModel(classNamesListModel);
-        studentClass8.setModel(classNamesListModel);
+            Teacher teacher = (Teacher) teacherNamesList.getSelectedItem();
+            if (teacher != null) {
+                teachHour1List.setSelectedIndex(getClassListIndex(teacher.getHour1()));
+                teachHour2List.setSelectedIndex(getClassListIndex(teacher.getHour2()));
+                teachHour3List.setSelectedIndex(getClassListIndex(teacher.getHour3()));
+                teachHour4List.setSelectedIndex(getClassListIndex(teacher.getHour4()));
+                teachHour5List.setSelectedIndex(getClassListIndex(teacher.getHour5()));
+                teachHour6List.setSelectedIndex(getClassListIndex(teacher.getHour6()));
+                teachHour7List.setSelectedIndex(getClassListIndex(teacher.getHour7()));
+                teachHour8List.setSelectedIndex(getClassListIndex(teacher.getHour8()));
+                // Use this teacher to set the rest
+            }
 
+
+        });
+        studentNamesList.addActionListener(e -> {
+            Student student = (Student) studentNamesList.getSelectedItem();
+            if (student != null) {
+                studentClass1.setSelectedIndex(getClassListIndex(student.getClass1()));
+                studentClass2.setSelectedIndex(getClassListIndex(student.getClass2()));
+                studentClass3.setSelectedIndex(getClassListIndex(student.getClass3()));
+                studentClass4.setSelectedIndex(getClassListIndex(student.getClass4()));
+                studentClass5.setSelectedIndex(getClassListIndex(student.getClass5()));
+                studentClass6.setSelectedIndex(getClassListIndex(student.getClass6()));
+                studentClass7.setSelectedIndex(getClassListIndex(student.getClass7()));
+                studentClass8.setSelectedIndex(getClassListIndex(student.getClass8()));
+                // Use this teacher to set the rest
+            }
+        });
         frame.pack();
 
 
@@ -209,44 +201,7 @@ public class Labber {
     }
 
 
-    /*private void setTeacherClasses(JList teacherNamesList) {
-        //get teacher row by...something
-        Teacher teach = teacherRepository.findTeacherByName((String) teacherNamesList.getSelectedValue());//split the name?
-        teach.setHour1(courseRepository.courseIDbyName(teachHour1List.getSelectedValue().getClassId()));//get the actual data from
-        teach.setHour2(courseRepository.courseIDbyName(teachHour2List.getSelectedValue().getClassId()));
-        teach.setHour3(courseRepository.courseIDbyName(teachHour3List.getSelectedValue().getClassId()));
-        teach.setHour4(courseRepository.courseIDbyName(teachHour4List.getSelectedValue().getClassId()));
-        teach.setHour5(courseRepository.courseIDbyName(teachHour5List.getSelectedValue().getClassId()));
-        teach.setHour6(courseRepository.courseIDbyName(teachHour6List.getSelectedValue().getClassId()));
-        teach.setHour7(courseRepository.courseIDbyName(teachHour7List.getSelectedValue().getClassId()));
-        teach.setHour8(courseRepository.courseIDbyName(teachHour8List.getSelectedValue().getClassId()));
-    }
 
-    private void setStudentClasses(JList studentNamesList) {
-        Student stud = studentRepository.findStudentByName((String) studentNamesList.getSelectedValue());//split the name?
-        stud.setClass1(courseRepository.courseIDbyName(studentClass1.getSelectedValue().getClassId()));//get the actual data from
-        stud.setClass2(courseRepository.courseIDbyName(studentClass2.getSelectedValue().getClassId()));
-        stud.setClass3(courseRepository.courseIDbyName(studentClass3.getSelectedValue().getClassId()));
-        stud.setClass4(courseRepository.courseIDbyName(studentClass4.getSelectedValue().getClassId()));
-        stud.setClass5(courseRepository.courseIDbyName(studentClass5.getSelectedValue().getClassId()));
-        stud.setClass6(courseRepository.courseIDbyName(studentClass6.getSelectedValue().getClassId()));
-        stud.setClass7(courseRepository.courseIDbyName(studentClass7.getSelectedValue().getClassId()));
-        stud.setClass8(courseRepository.courseIDbyName(studentClass8.getSelectedValue().getClassId()));
-        stud.setFlag(false);
-    }
-
-    private void setStudentClasses(JList studentNamesList, int[] scheduledCourses) {
-        Student stud = studentRepository.findStudentByName((String) studentNamesList.getSelectedValue());//split the name?
-        stud.setClass1(scheduledCourses[0]);
-        stud.setClass2(scheduledCourses[1]);
-        stud.setClass3(scheduledCourses[2]);
-        stud.setClass4(scheduledCourses[3]);
-        stud.setClass5(scheduledCourses[4]);
-        stud.setClass6(scheduledCourses[5]);
-        stud.setClass7(scheduledCourses[6]);
-        stud.setClass8(scheduledCourses[7]);
-        //and don't touch the flag
-    }*/
 
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
@@ -260,28 +215,28 @@ public class Labber {
     private JTextField className;
     private JTextField classGrade;
     private JButton classButton;
-    private JList<Teacher> teacherNamesList;
+    private FilterComboBox<Teacher> teacherNamesList;
     DefaultListModel<Teacher> teacherNamesListModel = new DefaultListModel<>();
-    private JList<Course> teachHour1List;
+    private FilterComboBox<Course> teachHour1List;
     DefaultListModel<Course> classNamesListModel = new DefaultListModel<>();
-    private JList<Course> teachHour2List;
-    private JList<Course> teachHour3List;
-    private JList<Course> teachHour4List;
-    private JList<Course> teachHour5List;
-    private JList<Course> teachHour6List;
-    private JList<Course> teachHour7List;
-    private JList<Course> teachHour8List;
+    private FilterComboBox<Course> teachHour2List;
+    private FilterComboBox<Course> teachHour3List;
+    private FilterComboBox<Course> teachHour4List;
+    private FilterComboBox<Course> teachHour5List;
+    private FilterComboBox<Course> teachHour6List;
+    private FilterComboBox<Course> teachHour7List;
+    private FilterComboBox<Course> teachHour8List;
     private JButton teacherSButton;
-    private JList<Student> studentNamesList;
+    private FilterComboBox<Student> studentNamesList;
     DefaultListModel<Student> studentNamesListModel = new DefaultListModel<>();
-    private JList<Course> studentClass1;
-    private JList<Course> studentClass2;
-    private JList<Course> studentClass3;
-    private JList<Course> studentClass4;
-    private JList<Course> studentClass5;
-    private JList<Course> studentClass6;
-    private JList<Course> studentClass7;
-    private JList<Course> studentClass8;
+    private FilterComboBox<Course> studentClass1;
+    private FilterComboBox<Course> studentClass2;
+    private FilterComboBox<Course> studentClass3;
+    private FilterComboBox<Course> studentClass4;
+    private FilterComboBox<Course> studentClass5;
+    private FilterComboBox<Course> studentClass6;
+    private FilterComboBox<Course> studentClass7;
+    private FilterComboBox<Course> studentClass8;
     private JButton studentScheduleButton;
     private JPanel Scheduler;
     private JButton generateScheduleSButton;

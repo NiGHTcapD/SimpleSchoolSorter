@@ -198,7 +198,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="18c3c" class="javax.swing.JList" binding="teacherNamesList">
+                  <component id="18c3c" class="org.example.utilities.FilterComboBox" binding="teacherNamesList">
                     <constraints/>
                     <properties/>
                   </component>
@@ -211,7 +211,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="a876d" class="javax.swing.JList" binding="teachHour1List">
+                  <component id="a876d" class="org.example.utilities.FilterComboBox" binding="teachHour1List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -224,7 +224,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="e8817" class="javax.swing.JList" binding="teachHour3List">
+                  <component id="e8817" class="org.example.utilities.FilterComboBox" binding="teachHour3List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -237,7 +237,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="ab1b3" class="javax.swing.JList" binding="teachHour5List">
+                  <component id="ab1b3" class="org.example.utilities.FilterComboBox" binding="teachHour5List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -250,7 +250,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="fba97" class="javax.swing.JList" binding="teachHour7List">
+                  <component id="fba97" class="org.example.utilities.FilterComboBox" binding="teachHour7List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -271,7 +271,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="dbd59" class="javax.swing.JList" binding="teachHour2List">
+                  <component id="dbd59" class="org.example.utilities.FilterComboBox" binding="teachHour2List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -284,7 +284,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="128dd" class="javax.swing.JList" binding="teachHour4List">
+                  <component id="128dd" class="org.example.utilities.FilterComboBox" binding="teachHour4List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -297,7 +297,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="5efe0" class="javax.swing.JList" binding="teachHour6List">
+                  <component id="5efe0" class="org.example.utilities.FilterComboBox" binding="teachHour6List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -310,7 +310,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="9e93e" class="javax.swing.JList" binding="teachHour8List">
+                  <component id="9e93e" class="org.example.utilities.FilterComboBox" binding="teachHour8List">
                     <constraints/>
                     <properties/>
                   </component>
@@ -333,7 +333,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="14eb4" class="javax.swing.JList" binding="studentNamesList">
+                  <component id="14eb4" class="org.example.utilities.FilterComboBox" binding="studentNamesList">
                     <constraints/>
                     <properties/>
                   </component>
@@ -346,7 +346,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="b0d2b" class="javax.swing.JList" binding="studentClass1">
+                  <component id="b0d2b" class="org.example.utilities.FilterComboBox" binding="studentClass1">
                     <constraints/>
                     <properties/>
                   </component>
@@ -359,7 +359,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="20dd7" class="javax.swing.JList" binding="studentClass3">
+                  <component id="20dd7" class="org.example.utilities.FilterComboBox" binding="studentClass3">
                     <constraints/>
                     <properties/>
                   </component>
@@ -372,7 +372,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="50989" class="javax.swing.JList" binding="studentClass5">
+                  <component id="50989" class="org.example.utilities.FilterComboBox" binding="studentClass5">
                     <constraints/>
                     <properties/>
                   </component>
@@ -385,7 +385,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="d7aa3" class="javax.swing.JList" binding="studentClass7">
+                  <component id="d7aa3" class="org.example.utilities.FilterComboBox" binding="studentClass7">
                     <constraints/>
                     <properties/>
                   </component>
@@ -414,7 +414,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="c8357" class="javax.swing.JList" binding="studentClass2">
+                  <component id="c8357" class="org.example.utilities.FilterComboBox" binding="studentClass2">
                     <constraints/>
                     <properties/>
                   </component>
@@ -427,7 +427,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="23ecd" class="javax.swing.JList" binding="studentClass4">
+                  <component id="23ecd" class="org.example.utilities.FilterComboBox" binding="studentClass4">
                     <constraints/>
                     <properties/>
                   </component>
@@ -440,7 +440,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="dcc24" class="javax.swing.JList" binding="studentClass6">
+                  <component id="dcc24" class="org.example.utilities.FilterComboBox" binding="studentClass6">
                     <constraints/>
                     <properties/>
                   </component>
@@ -453,7 +453,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="51d16" class="javax.swing.JList" binding="studentClass8">
+                  <component id="51d16" class="org.example.utilities.FilterComboBox" binding="studentClass8">
                     <constraints/>
                     <properties/>
                   </component>
