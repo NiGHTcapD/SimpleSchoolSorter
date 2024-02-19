@@ -8,6 +8,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class StudentsIntoClasses {
@@ -28,7 +29,8 @@ public class StudentsIntoClasses {
     @Autowired
     StudentRepository studentRepository;
 
-    public int[] studentScheduler(Student student) {
+
+    public Pair<Integer, Integer>[] studentScheduler(Student student) {
         classesScheduled = new int[MAX_CLASSES];
 
         //Loop for 8 iterations with a break condition
@@ -39,20 +41,22 @@ public class StudentsIntoClasses {
             if (!Arrays.equals(classesScheduled, EMPTY_ARRAY)) {
                 student.setFlag(true);
                 studentRepository.save(student);///DOES NOT DO WHAT IT SAYS ON THE TIN!!!!!!!!!!
-                //Classes scheduled currently consists of the teacher IDs, not the class IDs! Fix it by generating a new list from it? But keep the teacher IDs. You may have to expand our the contents of what student contains.
-                alterator(classesScheduled);
+                //Classes scheduled currently consists of the teacher IDs, not the class IDs! Fix it by generating a new list from it?
+                // But keep the teacher IDs. You may have to expand our the contents of what student contains.
+                Pair<Integer, Integer>[] classesAndTeachersScheduled = alterator(classesScheduled);//Turn techer ints into Pairs(Integer,Integer)!
                 break;
             }
         }
 
         System.out.println(java.util.Arrays.toString(classesScheduled));
-        return classesScheduled;
+        return classesAndTeachersScheduled;
     }
 
-    private void alterator(int[] classesScheduled) {
+    private Pair<Integer, Integer>[] alterator(int[] classesScheduled) {
+        Pair<Integer, Integer>[] classesAndTeachers = new Pair[];
         int[] teacherOrder = new int[MAX_CLASSES];
-        teacherOrder[0]=classesScheduled[0];
-        classesScheduled[0]=teacherRepository.findTeacherByID(teacherOrder[0]).getHour1();
+        classesAndTeachers.setKey(teacherRepository.findTeacherByID(classesScheduled[0]).getHour1());
+        classesAndTeachers.setValue(classesScheduled[0]);
         teacherOrder[1]=classesScheduled[1];
         classesScheduled[1]=teacherRepository.findTeacherByID(teacherOrder[1]).getHour2();
         teacherOrder[2]=classesScheduled[2];
@@ -67,6 +71,8 @@ public class StudentsIntoClasses {
         classesScheduled[6]=teacherRepository.findTeacherByID(teacherOrder[6]).getHour7();
         teacherOrder[7]=classesScheduled[7];
         classesScheduled[7]=teacherRepository.findTeacherByID(teacherOrder[7]).getHour8();
+
+        return new Pair[0];
     }
 
 
@@ -107,13 +113,58 @@ public class StudentsIntoClasses {
 
     private void scheduleClass(int[] classesScheduled, int[] studentClassList, List<Pair<Integer, Integer>>[] classesCouldSchedule, int isLowest) {
         if (classesCouldSchedule[isLowest].size() > 0) {//this handles an error on the next line where 0 is not a positive bound for randomization
-            int randomed = new Random().nextInt(classesCouldSchedule[isLowest].size());
+
+            //[client] wants to weight this based on what classes have more students scheduled
+            int randomed = weightClassesCouldSchedule(classesCouldSchedule[isLowest]);
+
+            //int randomed = new Random().nextInt(classesCouldSchedule[isLowest].size());
             Pair<Integer, Integer> classToScheduleByID = classesCouldSchedule[isLowest].get(randomed);
             //  Pop the class (or put a 0 on that part of the list) and put the teacher-class ID in the 8-int list
             studentClassList[isLowest] = 0;
             //first is hour, second should be the course ID
             classesScheduled[classToScheduleByID.getFirst()] = classToScheduleByID.getSecond();
         }
+    }
+
+    private int weightClassesCouldSchedule(List<Pair<Integer, Integer>> pairs) {
+        //apply weights as a negative distribution. With no students taking that particular class at that particular time? say...5/1 weight.
+        //1 student already taking, 5/2. Following this, 5/n+1
+
+        //get all students taking the course with that teacher, in that hour
+        //and do so for all classes
+        //apply to them the weight based on that number
+        //add that up into totalWeight
+        //then loose it upon the code below
+
+        //perhaps the input should be simpler
+
+        //SQL query: return count of students with this class, this period
+
+        List<Double> items= new ArrayList<>();
+        AtomicReference<Double> totalWeight= new AtomicReference<>((double) 0);
+        pairs.forEach(pair->{
+            switch (pair.getFirst()) {
+                case 1 -> items.add((double)1/studentRepository.findClassAllocation1(pair.getSecond()));
+                case 2 -> items.add((double)1/studentRepository.findClassAllocation2(pair.getSecond()));
+                case 3 -> items.add((double)1/studentRepository.findClassAllocation3(pair.getSecond()));
+                case 4 -> items.add((double)1/studentRepository.findClassAllocation4(pair.getSecond()));
+                case 5 -> items.add((double)1/studentRepository.findClassAllocation5(pair.getSecond()));
+                case 6 -> items.add((double)1/studentRepository.findClassAllocation6(pair.getSecond()));
+                case 7 -> items.add((double)1/studentRepository.findClassAllocation7(pair.getSecond()));
+                case 8 -> items.add((double)1/studentRepository.findClassAllocation8(pair.getSecond()));
+            }
+            if (!items.isEmpty()){
+                totalWeight.updateAndGet(v -> v + items.get(items.size()-1));
+            }
+        });
+
+        int idx = 0;
+        for (double randomizerTally = Math.random() * totalWeight.get(); idx < items.size() - 1; ++idx) {
+            randomizerTally -= items.get(idx);
+            if (randomizerTally <= 0.0) break;
+        }
+
+        return idx;
     }
 
     static int getLowest(List<Pair<Integer, Integer>>[] classesCouldSchedule) {//get the lowest nonzero number. These numbers are tallies of valid classcounts.
@@ -148,7 +199,7 @@ public class StudentsIntoClasses {
                         classesCouldSchedule[course].addAll(classesToList);
                     }
                 }
-            }
+            }//classesCouldSchedule is a list of pairs where the hour is first and the class is second
         }
 
         return classesCouldSchedule;

@@ -97,8 +97,9 @@ public class Labber {
 
             int[] studentScheduledClasses = labberService.getStudentScheduledClasses((Student) studentNamesList.getSelectedItem());
 
-            labberService.setStudentClasses((Student) studentNamesList.getSelectedItem(), studentScheduledClasses);
-
+            if (studentScheduledClasses[0]!=0) {
+                labberService.setStudentClasses((Student) studentNamesList.getSelectedItem(), studentScheduledClasses);
+            }
             //System.out.println();
         });//attempt to schedule them
 
@@ -112,7 +113,9 @@ public class Labber {
                 if (!student.isFlag()) {
                     //schedule them
                     int[] studentScheduledClasses = labberService.getStudentScheduledClasses(student);
-                    labberService.setStudentClasses(student, studentScheduledClasses);
+                    if (studentScheduledClasses[0]!=0) {
+                        labberService.setStudentClasses(student, studentScheduledClasses);
+                    }
                 }
             }
         });

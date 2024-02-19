@@ -44,6 +44,23 @@ public class Student {
     int class8;
 
     @Column
+    int teacher1;
+    @Column
+    int teacher2;
+    @Column
+    int teacher3;
+    @Column
+    int teacher4;
+    @Column
+    int teacher5;
+    @Column
+    int teacher6;
+    @Column
+    int teacher7;
+    @Column
+    int teacher8;
+
+    @Column
     boolean flag;
 
     public Student(String studentFirstName, String studentLastName, int studentGrade) {
@@ -58,6 +75,14 @@ public class Student {
         class6=0;
         class7=0;
         class8=0;
+        teacher1=0;
+        teacher2=0;
+        teacher3=0;
+        teacher4=0;
+        teacher5=0;
+        teacher6=0;
+        teacher7=0;
+        teacher8=0;
         flag=false;
     }
 

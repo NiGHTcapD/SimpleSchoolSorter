@@ -81,6 +81,19 @@ public class LabberService {
         studentRepository.save(stud);
     }
 
+    public void setStudentTeachers(Student stud, int[] listicle) {
+        stud.setTeacher1(listicle[0]);
+        stud.setTeacher2(listicle[1]);
+        stud.setTeacher3(listicle[2]);
+        stud.setTeacher4(listicle[3]);
+        stud.setTeacher5(listicle[4]);
+        stud.setTeacher6(listicle[5]);
+        stud.setTeacher7(listicle[6]);
+        stud.setTeacher8(listicle[7]);
+        //stud.setFlag(false);
+        studentRepository.save(stud);
+    }
+
     public void setStudentFlag(Student stud) {
         stud.setFlag(false);
     }
