@@ -8,6 +8,7 @@ import org.example.repository.StudentRepository;
 import org.example.repository.TeacherRepository;
 import org.example.swinggooey.DatabaseMirror;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,10 @@ public class LabberService {
     DatabaseMirror databaseMirror;
 
 
-    public int[] getStudentScheduledClasses(Student student) {
+    /*public int[] getStudentScheduledClasses(Student student) {
+        return studentsIntoClasses.studentScheduler(student);
+    }*/
+    public Pair<Integer, Integer>[] getStudentScheduledClasses(Student student) {
         return studentsIntoClasses.studentScheduler(student);
     }
 
@@ -77,7 +81,29 @@ public class LabberService {
         stud.setClass6(listicle[5]);
         stud.setClass7(listicle[6]);
         stud.setClass8(listicle[7]);
-        //stud.setFlag(false);
+        stud.setFlag(false);
+        studentRepository.save(stud);
+    }
+
+    public void setStudentClasses(Student stud, Pair<Integer, Integer>[] listicle) {
+        stud.setClass1(listicle[0].getFirst());
+        stud.setClass2(listicle[1].getFirst());
+        stud.setClass3(listicle[2].getFirst());
+        stud.setClass4(listicle[3].getFirst());
+        stud.setClass5(listicle[4].getFirst());
+        stud.setClass6(listicle[5].getFirst());
+        stud.setClass7(listicle[6].getFirst());
+        stud.setClass8(listicle[7].getFirst());
+
+        stud.setTeacher1(listicle[0].getSecond());
+        stud.setTeacher2(listicle[1].getSecond());
+        stud.setTeacher3(listicle[2].getSecond());
+        stud.setTeacher4(listicle[3].getSecond());
+        stud.setTeacher5(listicle[4].getSecond());
+        stud.setTeacher6(listicle[5].getSecond());
+        stud.setTeacher7(listicle[6].getSecond());
+        stud.setTeacher8(listicle[7].getSecond());
+        stud.setFlag(true);
         studentRepository.save(stud);
     }
 

@@ -44,35 +44,28 @@ public class StudentsIntoClasses {
                 //Classes scheduled currently consists of the teacher IDs, not the class IDs! Fix it by generating a new list from it?
                 // But keep the teacher IDs. You may have to expand our the contents of what student contains.
                 Pair<Integer, Integer>[] classesAndTeachersScheduled = alterator(classesScheduled);//Turn techer ints into Pairs(Integer,Integer)!
-                break;
+                return classesAndTeachersScheduled;
+                //break;
             }
         }
 
         System.out.println(java.util.Arrays.toString(classesScheduled));
-        return classesAndTeachersScheduled;
+        return new Pair<>[8];
     }
 
     private Pair<Integer, Integer>[] alterator(int[] classesScheduled) {
-        Pair<Integer, Integer>[] classesAndTeachers = new Pair[];
+        Pair<Integer, Integer>[] classesAndTeachers = new Pair[8];
         int[] teacherOrder = new int[MAX_CLASSES];
-        classesAndTeachers.setKey(teacherRepository.findTeacherByID(classesScheduled[0]).getHour1());
-        classesAndTeachers.setValue(classesScheduled[0]);
-        teacherOrder[1]=classesScheduled[1];
-        classesScheduled[1]=teacherRepository.findTeacherByID(teacherOrder[1]).getHour2();
-        teacherOrder[2]=classesScheduled[2];
-        classesScheduled[2]=teacherRepository.findTeacherByID(teacherOrder[2]).getHour3();
-        teacherOrder[3]=classesScheduled[3];
-        classesScheduled[3]=teacherRepository.findTeacherByID(teacherOrder[3]).getHour4();
-        teacherOrder[4]=classesScheduled[4];
-        classesScheduled[4]=teacherRepository.findTeacherByID(teacherOrder[4]).getHour5();
-        teacherOrder[5]=classesScheduled[5];
-        classesScheduled[5]=teacherRepository.findTeacherByID(teacherOrder[5]).getHour6();
-        teacherOrder[6]=classesScheduled[6];
-        classesScheduled[6]=teacherRepository.findTeacherByID(teacherOrder[6]).getHour7();
-        teacherOrder[7]=classesScheduled[7];
-        classesScheduled[7]=teacherRepository.findTeacherByID(teacherOrder[7]).getHour8();
+        classesAndTeachers[0] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[0]).getHour1(), classesScheduled[0]);
+        classesAndTeachers[1] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[1]).getHour2(), classesScheduled[1]);
+        classesAndTeachers[2] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[2]).getHour3(), classesScheduled[2]);
+        classesAndTeachers[3] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[3]).getHour4(), classesScheduled[3]);
+        classesAndTeachers[4] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[4]).getHour5(), classesScheduled[4]);
+        classesAndTeachers[5] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[5]).getHour6(), classesScheduled[5]);
+        classesAndTeachers[6] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[6]).getHour7(), classesScheduled[6]);
+        classesAndTeachers[7] = Pair.of(teacherRepository.findTeacherByID(classesScheduled[7]).getHour8(), classesScheduled[7]);
 
-        return new Pair[0];
+        return classesAndTeachers;
     }
 
 

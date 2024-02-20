@@ -7,6 +7,7 @@ import org.example.services.LabberService;
 import org.example.utilities.AutocompleteComboBox;
 import org.example.utilities.DigitsOnlyFilter;
 import org.example.utilities.FilterComboBox;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -95,9 +96,9 @@ public class Labber {
             labberService.setStudentClasses((Student) studentNamesList.getSelectedItem(), listicle);
             labberService.setStudentFlag((Student) studentNamesList.getSelectedItem());
 
-            int[] studentScheduledClasses = labberService.getStudentScheduledClasses((Student) studentNamesList.getSelectedItem());
+            Pair<Integer, Integer>[] studentScheduledClasses = labberService.getStudentScheduledClasses((Student) studentNamesList.getSelectedItem());
 
-            if (studentScheduledClasses[0]!=0) {
+            if (studentScheduledClasses[0].getFirst()!=0) {
                 labberService.setStudentClasses((Student) studentNamesList.getSelectedItem(), studentScheduledClasses);
             }
             //System.out.println();
@@ -112,8 +113,8 @@ public class Labber {
                 //if they have flag set to false
                 if (!student.isFlag()) {
                     //schedule them
-                    int[] studentScheduledClasses = labberService.getStudentScheduledClasses(student);
-                    if (studentScheduledClasses[0]!=0) {
+                    Pair<Integer, Integer>[] studentScheduledClasses = labberService.getStudentScheduledClasses(student);
+                    if (studentScheduledClasses[0].getFirst()!=0) {
                         labberService.setStudentClasses(student, studentScheduledClasses);
                     }
                 }
